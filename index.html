@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raffle for Sunrise | Lawrenceville</title>
+<meta name="description" content="A student-led raffle at Lawrenceville raising money for Sunrise Day Camp, which gives kids with cancer and their siblings a summer to just be kids. $2 a ticket.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============ CONFIG NOTE ============
+   Edit the values in the <script> block at the bottom (DONATE_URL, RAFFLE_DATE, GOAL, RAISED). */
+:root{
+  --purple:#6950A1; --purple-deep:#3D2A6B;
+  --orange:#F79433; --sun:#FBB040;
+  --sky:#0083CA; --sky-dark:#00629A;
+  --green:#4CB748; --magenta:#B43E97; --teal:#00A79D;
+  --cream:#FFF7EC; --mist:#E6F3FA;
+  --ink:#1D1D1B; --body:#3F3F3F; --white:#fff;
+  --orange-text:#A85200; /* darker orange for small text on light bg (AA) */
+  --shadow:6px 6px 0 var(--purple-deep);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:'Libre Franklin',system-ui,sans-serif;font-size:17.5px;line-height:1.6;color:var(--body);background:var(--cream);overflow-x:hidden}
+img,svg{max-width:100%}
+a{color:var(--sky-dark)}
+h1,h2,h3{color:var(--purple-deep);margin:0 0 .5em;line-height:1.08;letter-spacing:-.02em}
+h1{font-size:clamp(40px,7vw,78px);font-weight:900;line-height:1.02;color:#fff}
+h2{font-size:clamp(32px,4.6vw,48px);font-weight:800}
+h3{font-size:22px;font-weight:800;letter-spacing:-.01em}
+p{margin:0 0 1em}
+.wrap{width:min(1120px,100% - 40px);margin-inline:auto}
+.eyebrow{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--orange-text);margin:0 0 12px}
+.on-dark .eyebrow,.hero .eyebrow{color:var(--sun)}
+.skip{position:absolute;left:-999px;top:8px;background:#fff;color:var(--purple-deep);padding:10px 16px;border-radius:99px;z-index:100;font-weight:700}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+
+/* squiggle highlight */
+.hl{position:relative;display:inline-block;white-space:nowrap}
+.hl svg{position:absolute;left:-2%;bottom:-.22em;width:104%;height:.3em;z-index:-1;overflow:visible}
+.hl svg path{stroke:var(--sun);stroke-width:9;fill:none;stroke-linecap:round}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:700 18px/1 'Libre Franklin',sans-serif;padding:16px 32px;border-radius:999px;border:2px solid var(--purple-deep);text-decoration:none;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.8,.6,1),box-shadow .2s}
+.btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:4px 4px 0 var(--purple-deep)}
+.btn:active{transform:translateY(0) scale(.99)}
+.btn-primary{background:var(--orange);color:var(--purple-deep)}
+.btn-sky{background:var(--sky-dark);color:#fff}
+.btn-ghost{background:transparent;color:#fff;border-color:#fff}
+.btn-ghost:hover{box-shadow:4px 4px 0 rgba(0,0,0,.35)}
+.btn-purple{background:var(--purple);color:#fff}
+.btn-sm{font-size:16px;padding:12px 22px}
+
+/* header */
+header.site{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,box-shadow .3s}
+header.site.solid{background:#fff;box-shadow:0 4px 18px rgba(61,42,107,.15)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:20px;letter-spacing:-.02em;color:#fff;line-height:1.05}
+.solid .logo{color:var(--purple-deep)}
+.logo small{display:block;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.links{display:flex;gap:28px;align-items:center}
+.links a.l{color:#fff;font-weight:700;text-decoration:none;font-size:16px}
+.solid .links a.l{color:var(--purple)}
+.links a.l:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px;text-decoration-color:var(--orange)}
+.burger{display:none;background:none;border:2px solid currentColor;color:#fff;border-radius:12px;width:46px;height:46px;cursor:pointer}
+.solid .burger{color:var(--purple-deep)}
+.burger span{display:block;width:20px;height:2px;background:currentColor;margin:5px auto;border-radius:2px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:#fff;padding:150px 0 0;background:linear-gradient(180deg,var(--purple-deep) 0%,var(--purple) 34%,var(--magenta) 60%,var(--orange) 84%,var(--sun) 100%)}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;position:relative;z-index:3}
+.hero p.sub{font-size:20px;max-width:560px;color:#fff}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.hero-sun{position:absolute;left:50%;bottom:-430px;width:900px;max-width:none;transform:translateX(-50%);z-index:1}
+.rays{transform-origin:450px 450px;animation:spin 120s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-art{position:relative;min-height:420px;display:grid;place-items:center}
+.hero-spacer{height:230px;position:relative;z-index:2}
+.wave{display:block;width:100%;height:auto;position:relative;z-index:4;margin-bottom:-2px}
+
+/* polaroid */
+.polaroid{position:relative;background:#fff;padding:14px 14px 0;border-radius:6px;box-shadow:0 14px 30px rgba(29,29,27,.28);width:min(320px,100%);transform:rotate(var(--r,3deg))}
+.polaroid .pic{aspect-ratio:1/1;border-radius:3px;overflow:hidden;background:var(--mist)}
+.polaroid .pic svg{width:100%;height:100%;display:block}
+.polaroid figcaption{font-weight:700;font-size:15px;color:var(--purple-deep);padding:12px 4px 16px;text-align:center}
+.tape{position:absolute;width:96px;height:30px;opacity:.82;background:var(--c,var(--sun));transform:rotate(var(--tr,-35deg));z-index:2;
+  -webkit-mask:linear-gradient(90deg,transparent 0 3%,#000 3% 97%,transparent 97%);mask:linear-gradient(90deg,transparent 0 3%,#000 3% 97%,transparent 97%);
+  clip-path:polygon(0 8%,4% 0,8% 10%,12% 0,16% 8%,20% 0,100% 0,100% 100%,20% 100%,16% 92%,12% 100%,8% 90%,4% 100%,0 92%)}
+.tape.tl{top:-10px;left:-26px}.tape.tr{top:-10px;right:-26px;--tr:35deg}
+
+/* sticker badge */
+.badge{position:absolute;width:150px;height:150px;z-index:5}
+.badge .spin{transform-origin:75px 75px;animation:spin 24s linear infinite}
+.badge text{font:800 13px 'Libre Franklin',sans-serif;letter-spacing:.14em;fill:var(--purple-deep);text-transform:uppercase}
+.hero-art .badge{right:-8px;bottom:-4px}
+
+/* doodles */
+.doodle{position:absolute;pointer-events:none}
+
+/* sections */
+section{position:relative}
+.pad{padding:96px 0}
+.sec-cream{background:var(--cream)}
+.sec-white{background:#fff}
+.sec-mist{background:var(--mist)}
+.sec-purple{background:var(--purple);color:#fff}
+.sec-purple h2,.sec-purple h3{color:#fff}
+.sec-orange{background:var(--orange);color:var(--purple-deep)}
+.sec-orange h2{color:var(--purple-deep)}
+.sec-orange p{color:var(--purple-deep)}
+.sec-orange .eyebrow{color:var(--purple-deep)}
+.head{max-width:720px;margin-bottom:48px}
+.head.center{margin-inline:auto;text-align:center}
+.divider{display:block;width:100%;height:46px;margin-bottom:-1px}
+.divider.up{margin-top:-45px;position:relative;z-index:2}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.card{background:#fff;border:2px solid var(--purple-deep);border-radius:24px;box-shadow:var(--shadow);padding:0 28px 32px;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--purple-deep)}
+.card .band{height:14px;background:var(--c);margin:0 -28px 26px;border-bottom:2px solid var(--purple-deep)}
+.blob{width:84px;height:84px;display:grid;place-items:center;margin-bottom:18px}
+.blob svg{width:100%;height:100%}
+.card p{margin:0}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;counter-reset:s;position:relative}
+.step{text-align:left;position:relative}
+.num{width:64px;height:64px;border-radius:50% 46% 54% 50%;display:grid;place-items:center;font-weight:900;font-size:30px;color:var(--purple-deep);background:var(--c);border:2px solid var(--purple-deep);box-shadow:4px 4px 0 var(--purple-deep);margin-bottom:16px}
+.step .arrow{position:absolute;top:10px;right:-34px;width:60px}
+.step:last-child .arrow{display:none}
+
+/* ticket box */
+.tickets{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.tbox{background:#fff;color:var(--body);border:2px solid var(--purple-deep);border-radius:24px;box-shadow:8px 8px 0 var(--sun);padding:32px}
+.tbox h3{color:var(--purple-deep)}
+.presets{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.chip{font:700 17px 'Libre Franklin',sans-serif;padding:10px 20px;border-radius:99px;border:2px solid var(--purple-deep);background:#fff;color:var(--purple-deep);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--purple-deep);color:#fff}
+.qty{display:flex;align-items:center;gap:16px;margin:18px 0}
+.qty button{width:52px;height:52px;border-radius:50%;border:2px solid var(--purple-deep);background:var(--sun);font:900 26px/1 'Libre Franklin',sans-serif;color:var(--purple-deep);cursor:pointer}
+.qty output{font-size:56px;font-weight:900;color:var(--purple-deep);min-width:120px;text-align:center;line-height:1}
+.qty small{display:block;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--body)}
+.tbox .btn{width:100%}
+.fine{font-size:15px;margin:14px 0 0;color:var(--body)}
+
+/* destinations */
+.dest{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.dest .card{padding-top:0}
+
+/* stats */
+.stats{background:var(--purple-deep);color:#fff;padding:84px 0;text-align:center}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.stat b{display:block;font-size:clamp(60px,9vw,104px);font-weight:900;color:var(--sun);line-height:1;letter-spacing:-.03em}
+.stat span{display:block;margin-top:10px;font-size:18px;font-weight:600;color:#fff}
+.thermo{max-width:760px;margin:56px auto 0}
+.thermo .bar{height:34px;border-radius:99px;background:rgba(255,255,255,.16);border:2px solid #fff;overflow:hidden}
+.thermo .fill{height:100%;width:0;background:linear-gradient(90deg,var(--sun),var(--orange));border-radius:99px;transition:width 1.6s cubic-bezier(.2,.8,.2,1);min-width:34px}
+.thermo p{display:flex;justify-content:space-between;margin:10px 4px 0;font-weight:700;color:#fff}
+
+/* story */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.story-art{position:relative;min-height:560px}
+.story-art .polaroid:nth-child(1){position:absolute;left:0;top:0;--r:-4deg;width:260px}
+.story-art .polaroid:nth-child(2){position:absolute;right:0;bottom:0;--r:3.5deg;z-index:2;width:250px}
+.qmark{font-size:140px;line-height:.6;font-weight:900;color:var(--magenta);display:block;height:60px}
+.pull{font-size:clamp(21px,2.4vw,24px);font-weight:600;color:var(--purple-deep);line-height:1.45}
+.placeholder-note{display:inline-block;background:var(--sun);color:var(--purple-deep);font-size:14px;font-weight:700;padding:4px 12px;border-radius:99px;margin-top:6px}
+
+/* CTA */
+.cta-band{padding:100px 0;text-align:center;overflow:hidden}
+.cta-band h2{font-size:clamp(36px,6vw,64px);font-weight:900;max-width:820px;margin-inline:auto}
+.cta-band p{font-size:20px;max-width:620px;margin-inline:auto 0;margin:0 auto 28px}
+.cta-band .btn-primary{background:var(--purple-deep);color:#fff;border-color:var(--purple-deep)}
+.cta-band .btn-primary:hover{box-shadow:4px 4px 0 #fff}
+
+/* footer */
+footer{background:var(--purple-deep);color:#fff;padding:64px 0 32px}
+footer a{color:#fff}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+footer h3{color:var(--sun);font-size:15px;text-transform:uppercase;letter-spacing:.12em}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{margin-bottom:8px}
+.legal{border-top:1px solid rgba(255,255,255,.25);margin-top:40px;padding-top:22px;font-size:15px;color:#fff}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .4s ease,transform .4s ease}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .links{position:fixed;inset:76px 0 auto 0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:12px 20px 24px;box-shadow:0 12px 24px rgba(61,42,107,.2);display:none}
+  .links.open{display:flex}
+  .links a.l{color:var(--purple);padding:14px 4px;font-size:18px;border-bottom:1px solid var(--mist)}
+  .links .btn{margin-top:14px}
+  .burger{display:block}
+  header.menu-open{background:#fff}
+  header.menu-open .logo,header.menu-open .burger{color:var(--purple-deep)}
+  .hero{padding-top:112px}
+  .hero-grid,.tickets,.story{grid-template-columns:1fr}
+  .hero-art{min-height:380px;margin-top:10px}
+  .hero-sun{width:700px;bottom:-330px}
+  .hero-spacer{height:150px}
+  .cards,.dest{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;gap:34px 20px}
+  .step .arrow{display:none}
+  .stats-grid{grid-template-columns:1fr;gap:40px}
+  .fgrid{grid-template-columns:1fr}
+  .pad{padding:72px 0}
+  .story-art{min-height:520px}
+}
+@media (max-width:480px){
+  body{font-size:17px}
+  .steps{grid-template-columns:1fr}
+  .btn{padding:15px 26px}
+  .hero .cta .btn{width:100%}
+  .story-art .polaroid:nth-child(1){width:210px}
+  .story-art .polaroid:nth-child(2){width:200px}
+  .qty output{font-size:46px;min-width:96px}
+  .hl{white-space:normal}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- SVG defs reused across the page -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sparkle" viewBox="0 0 40 40"><path d="M20 2c1.5 10 8 16.500 18 18-10 1.500-16.500 8-18 18-1.500-10-8-16.500-18-18C12 18.500 18.500 12 20 2z" fill="currentColor"/></symbol>
+    <symbol id="heart" viewBox="0 0 40 40"><path d="M20 35C6 25 3 17 3 12.500 3 7.500 7 4 11.500 4c3.500 0 6.500 2 8.500 5 2-3 5-5 8.500-5C33 4 37 7.500 37 12.500 37 17 34 25 20 35z" fill="currentColor"/></symbol>
+    <symbol id="mini-sun" viewBox="0 0 60 60"><circle cx="30" cy="30" r="11" fill="currentColor"/><g stroke="currentColor" stroke-width="5" stroke-linecap="round"><path d="M30 5v8M30 47v8M5 30h8M47 30h8M12 12l6 6M42 42l6 6M48 12l-6 6M18 42l-6 6"/></g></symbol>
+    <symbol id="squig" viewBox="0 0 120 20"><path d="M3 12c10-14 18 14 28 0s18 14 28 0 18 14 28 0 18 14 28 0" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="site" id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="Raffle for Sunrise, home">
+      <svg width="44" height="44" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="29" fill="#FBB040" stroke="#3D2A6B" stroke-width="2.500"/><g stroke="#3D2A6B" stroke-width="4" stroke-linecap="round"><path d="M30 8v7M30 45v7M8 30h7M45 30h7M14 14l5 5M41 41l5 5M46 14l-5 5M19 41l-5 5"/></g><circle cx="30" cy="30" r="9" fill="#F79433" stroke="#3D2A6B" stroke-width="2.500"/></svg>
+      <span>Raffle for Sunrise<small>Lawrenceville</small></span>
+    </a>
+    <button class="burger" aria-label="Open menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button>
+    <nav class="links" id="links" aria-label="Main">
+      <a class="l" href="#about">About Sunrise</a>
+      <a class="l" href="#how">How it works</a>
+      <a class="l" href="#tickets">Get tickets</a>
+      <a class="l" href="#story">Our story</a>
+      <a class="btn btn-primary btn-sm donate-link" href="#">Donate</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- HERO -->
+<section class="hero" aria-labelledby="h1">
+  <svg class="hero-sun" viewBox="0 0 900 900" aria-hidden="true">
+    <g class="rays" fill="#FBB040" opacity=".9">
+    </g>
+    <circle cx="450" cy="450" r="215" fill="#FBB040"/>
+    <circle cx="450" cy="450" r="215" fill="none" stroke="#3D2A6B" stroke-width="3" opacity=".25"/>
+    <circle cx="450" cy="450" r="150" fill="#F79433" opacity=".55"/>
+  </svg>
+
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow rv">A student-led fundraiser · Lawrenceville × Sunrise</p>
+      <h1 id="h1" class="rv">Buy a ticket. Help a kid have a <span class="hl">summer<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 12c25-14 45 12 72 0s47-12 72 0 47 12 72 0 47-10 76-2"/></svg></span> to remember.</h1>
+      <p class="sub rv">Join our lunchtime raffle supporting Sunrise Day Camp, a free summer camp for children with cancer and their siblings. Tickets are just $2, and every dollar goes to Sunrise.</p>
+      <div class="cta rv">
+        <a class="btn btn-primary donate-link" href="#">Donate now</a>
+        <a class="btn btn-ghost" href="#tickets">Get raffle tickets</a>
+      </div>
+    </div>
+    <div class="hero-art rv">
+      <figure class="polaroid" style="--r:3deg">
+        <span class="tape tl" style="--c:var(--magenta)"></span><span class="tape tr" style="--c:var(--sun)"></span>
+        <div class="pic">
+          <!-- placeholder illustration: swap for a real camp photo -->
+          <svg viewBox="0 0 300 300" role="img" aria-label="Illustration of a smiling sun rising over green hills with a tent">
+            <rect width="300" height="300" fill="#E6F3FA"/>
+            <circle cx="150" cy="190" r="70" fill="#FBB040"/>
+            <g stroke="#F79433" stroke-width="8" stroke-linecap="round"><path d="M150 82v-22M80 108l-14-16M220 108l14-16M52 170H30M248 170h22"/></g>
+            <path d="M0 215c50-40 110-40 160-10s100 20 140-10v105H0z" fill="#4CB748"/>
+            <path d="M0 250c60-25 120-20 180 0s90 5 120-8v58H0z" fill="#3a9a37"/>
+            <path d="M200 255l35-60 35 60z" fill="#B43E97" stroke="#3D2A6B" stroke-width="3" stroke-linejoin="round"/>
+            <path d="M235 255l-10 0 10-28 10 28z" fill="#3D2A6B"/>
+            <circle cx="135" cy="180" r="4" fill="#3D2A6B"/><circle cx="165" cy="180" r="4" fill="#3D2A6B"/>
+            <path d="M135 197c8 10 22 10 30 0" fill="none" stroke="#3D2A6B" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <figcaption>Summer, the Sunrise way ☀️</figcaption>
+      </figure>
+      <svg class="badge" viewBox="0 0 150 150" role="img" aria-label="Badge: only $2 a ticket">
+        <circle cx="75" cy="75" r="73" fill="#FBB040" stroke="#3D2A6B" stroke-width="3"/>
+        <defs><path id="circ" d="M75 75m-54 0a54 54 0 1 1 108 0a54 54 0 1 1-108 0"/></defs>
+        <g class="spin"><text><textPath href="#circ">Raffle tickets · Raffle tickets ·</textPath></text></g>
+        <text x="75" y="88" text-anchor="middle" style="font-size:40px;font-weight:900;letter-spacing:-.02em;text-transform:none">$2</text>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-spacer"></div>
+  <svg class="wave" viewBox="0 0 1440 80" preserveAspectRatio="none" height="60" aria-hidden="true"><path d="M0 40c120 40 240 40 360 10s240-40 360-10 240 40 360 10 240-30 360 0v30H0z" fill="#FFF7EC"/></svg>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="pad sec-cream" aria-labelledby="about-h">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">Why we're doing this</p>
+      <h2 id="about-h">Sunrise Day Camp gives kids with cancer a summer to just be <span class="hl">kids<svg viewBox="0 0 120 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c10-14 18 14 28 0s18 14 28 0 18 14 28 0 18 14 28 0"/></svg></span>.</h2>
+      <p>Sunrise Day Camp Greater Philadelphia welcomes children living with cancer, and their siblings, for a summer full of friends, laughs, and adventure. Our raffle brings that mission to Lawrenceville.</p>
+    </div>
+    <div class="cards">
+      <article class="card rv" style="--c:var(--orange)">
+        <div class="band"></div>
+        <div class="blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 6c26-2 46 16 44 42S74 96 46 94 4 72 6 46 24 8 50 6z" fill="#FBB040"/><circle cx="50" cy="50" r="16" fill="#3D2A6B"/><g stroke="#3D2A6B" stroke-width="6" stroke-linecap="round"><path d="M50 18v8M50 74v8M18 50h8M74 50h8M27 27l6 6M67 67l6 6M73 27l-6 6M33 67l-6 6"/></g></svg></div>
+        <h3>A camp for kids</h3>
+        <p>Sunrise is a place where children facing cancer and their siblings can swim, play, make friends, and feel like themselves.</p>
+      </article>
+      <article class="card rv" style="--c:var(--teal)">
+        <div class="band"></div>
+        <div class="blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M48 4c28 0 48 20 46 46S72 96 44 94 4 70 6 44 22 4 48 4z" fill="#00A79D"/><g transform="translate(26 28) scale(1.1)"><use href="#heart" width="40" height="40" style="color:#FFF7EC"/></g></svg></div>
+        <h3>Teens lead the way</h3>
+        <p>TTLC is the teen leadership program of Sunrise Greater Philadelphia. This raffle is powered by students who care.</p>
+      </article>
+      <article class="card rv" style="--c:var(--magenta)">
+        <div class="band"></div>
+        <div class="blob"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M52 6c26 2 44 22 42 46S70 96 44 92 6 68 8 42 26 4 52 6z" fill="#B43E97"/><path d="M30 56l14-26 8 14 8-10 10 22z" fill="#FFF7EC" stroke="#3D2A6B" stroke-width="3" stroke-linejoin="round"/><circle cx="64" cy="32" r="6" fill="#FBB040"/></svg></div>
+        <h3>Your $2 matters</h3>
+        <p>One $2 ticket gives you a chance to win and helps Sunrise keep camp running. Buy one ticket or a handful, and every one counts.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<svg class="divider" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0h1440v20c-60 22-120 22-180 0s-120-22-180 0-120 22-180 0-120-22-180 0-120 22-180 0-120-22-180 0-120 22-180 0V0z" fill="#FFF7EC"/></svg>
+<section id="how" class="pad sec-purple on-dark" style="margin-top:-1px" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="head rv">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-h">Four easy steps to a <span class="hl">brighter</span> summer.</h2>
+    </div>
+    <ol class="steps" style="list-style:none;padding:0;margin:0">
+      <li class="step rv"><div class="num" style="--c:var(--sun)">1</div><h3>Grab tickets</h3><p>Find us at lunch, or buy online. Tickets are $2 each, with no limit on how many you can buy.</p>
+        <svg class="arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 20c14-18 30-18 48-6M42 6l10 8-12 6" fill="none" stroke="#FBB040" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+      <li class="step rv"><div class="num" style="--c:var(--teal)">2</div><h3>Pick where it goes</h3><p>Send your gift to Sunrise Greater Philadelphia, a Sunrise camp near your hometown, or Sunrise overall.</p>
+        <svg class="arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 20c14-18 30-18 48-6M42 6l10 8-12 6" fill="none" stroke="#FBB040" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+      <li class="step rv"><div class="num" style="--c:var(--orange)">3</div><h3>Tell a friend</h3><p>Share the page. The more people who know about Sunrise, the more kids we can help.</p>
+        <svg class="arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 20c14-18 30-18 48-6M42 6l10 8-12 6" fill="none" stroke="#FBB040" stroke-width="3.500" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
+      <li class="step rv"><div class="num" style="--c:var(--magenta);color:#fff">4</div><h3>Win &amp; celebrate</h3><p>Winners are drawn on raffle day: <strong class="raffle-date">date coming soon</strong>. Everyone wins by supporting camp.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- TICKETS -->
+<svg class="divider" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0h1440v20c-60 22-120 22-180 0s-120-22-180 0-120 22-180 0-120 22-180 0-120-22-180 0-120 22-180 0-120-22-180 0-120 22-180 0V0z" fill="#6950A1"/></svg>
+<section id="tickets" class="pad sec-white" style="margin-top:-1px" aria-labelledby="t-h">
+  <div class="wrap tickets">
+    <div class="rv">
+      <p class="eyebrow">Raffle tickets</p>
+      <h2 id="t-h">The more you buy, the more <span class="hl">good<svg viewBox="0 0 120 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 12c10-14 18 14 28 0s18 14 28 0 18 14 28 0 18 14 28 0"/></svg></span> you do.</h2>
+      <p>Raffle day is <strong class="raffle-date">coming soon</strong>, during lunch at Lawrenceville. You can buy as many tickets as you like for $2 each, and all of the money goes to Sunrise.</p>
+      <p>Not at Lawrenceville? You can still give. Use the donate button and choose where your gift goes.</p>
+    </div>
+    <div class="tbox rv">
+      <h3>How many tickets?</h3>
+      <div class="presets" role="group" aria-label="Quick amounts">
+        <button class="chip" data-n="1" aria-pressed="false">1</button>
+        <button class="chip" data-n="3" aria-pressed="true">3</button>
+        <button class="chip" data-n="5" aria-pressed="false">5</button>
+        <button class="chip" data-n="10" aria-pressed="false">10</button>
+      </div>
+      <div class="qty">
+        <button type="button" id="minus" aria-label="Fewer tickets">−</button>
+        <output id="amount" aria-live="polite">$6</output>
+        <button type="button" id="plus" aria-label="More tickets">+</button>
+      </div>
+      <p style="margin:0"><small id="qtylabel" style="font-weight:700">3 tickets · $2 each</small></p>
+      <p style="height:12px;margin:0"></p>
+      <a class="btn btn-primary donate-link" href="#">Give <span id="btnamt">$6</span> to Sunrise</a>
+      <p class="fine">You'll finish your gift on a secure page. Paying in person at lunch? Just bring your cash to the table.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section class="pad sec-mist" aria-labelledby="d-h">
+  <div class="wrap">
+    <div class="head center rv">
+      <p class="eyebrow">You choose</p>
+      <h2 id="d-h">Where should your gift <span class="hl">shine</span>?</h2>
+      <p>Every Sunrise supporter can direct their gift to the place that means the most to them.</p>
+    </div>
+    <div class="dest">
+      <article class="card rv" style="--c:var(--sky)"><div class="band"></div><h3>Sunrise Greater Philadelphia</h3><p>Support the local camp that our TTLC teens know and love.</p></article>
+      <article class="card rv" style="--c:var(--green)"><div class="band"></div><h3>A camp near your hometown</h3><p>If there's a Sunrise camp close to where you live, send your gift there.</p></article>
+      <article class="card rv" style="--c:var(--orange)"><div class="band"></div><h3>Sunrise overall</h3><p>Back Sunrise Association's programs everywhere, wherever they're needed most.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats on-dark" aria-labelledby="s-h">
+  <div class="wrap">
+    <p class="eyebrow">By the numbers</p>
+    <h2 id="s-h" style="color:#fff;margin-bottom:48px">Small tickets. <span style="color:var(--sun)">Big</span> heart.</h2>
+    <div class="stats-grid">
+      <div class="stat rv"><b><span data-count="2" data-prefix="$">$2</span></b><span>per raffle ticket</span></div>
+      <div class="stat rv"><b><span data-count="100" data-suffix="%">100%</span></b><span>goes to Sunrise</span></div>
+      <div class="stat rv"><b><span data-count="1">1</span></b><span>lunch, one whole school</span></div>
+    </div>
+    <div class="thermo rv">
+      <div class="bar" role="progressbar" aria-label="Fundraising progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><div class="fill" id="fill"></div></div>
+      <p><span id="raised">$0 raised</span><span id="goal">Goal: $500</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<svg class="divider" viewBox="0 0 1440 46" preserveAspectRatio="none" aria-hidden="true"><path d="M0 0h1440v20c-60 22-120 22-180 0s-120-22-180 0-120 22-180 0-120 22-180 0-120-22-180 0-120 22-180 0-120-22-180 0-120 22-180 0V0z" fill="#3D2A6B"/></svg>
+<section id="story" class="pad sec-cream" style="margin-top:-1px" aria-labelledby="st-h">
+  <div class="wrap story">
+    <div class="story-art rv">
+      <figure class="polaroid"><span class="tape tl" style="--c:var(--teal)"></span>
+        <div class="pic"><svg viewBox="0 0 300 300" role="img" aria-label="Placeholder: group of smiling campers"><rect width="300" height="300" fill="#FFF7EC"/><g stroke="#3D2A6B" stroke-width="4"><circle cx="90" cy="140" r="30" fill="#FBB040"/><circle cx="160" cy="125" r="34" fill="#4CB748"/><circle cx="220" cy="145" r="28" fill="#B43E97"/></g><g fill="#3D2A6B"><circle cx="80" cy="134" r="3.500"/><circle cx="100" cy="134" r="3.500"/><circle cx="148" cy="118" r="3.500"/><circle cx="170" cy="118" r="3.500"/><circle cx="212" cy="140" r="3.500"/><circle cx="230" cy="140" r="3.500"/></g><g fill="none" stroke="#3D2A6B" stroke-width="3.500" stroke-linecap="round"><path d="M80 150c6 8 14 8 20 0M148 136c8 10 20 10 28 0M212 156c5 7 13 7 18 0"/></g><path d="M50 300c10-70 50-90 100-90s90 20 100 90z" fill="#6950A1"/></svg></div>
+        <figcaption>Add your TTLC photo here</figcaption></figure>
+      <figure class="polaroid"><span class="tape tr" style="--c:var(--magenta)"></span>
+        <div class="pic"><svg viewBox="0 0 300 300" role="img" aria-label="Placeholder: raffle tickets"><rect width="300" height="300" fill="#E6F3FA"/><g transform="rotate(-8 150 150)"><rect x="40" y="100" width="220" height="100" rx="12" fill="#F79433" stroke="#3D2A6B" stroke-width="4"/><path d="M200 100v100" stroke="#3D2A6B" stroke-width="3" stroke-dasharray="8 8"/><circle cx="110" cy="150" r="26" fill="#FBB040" stroke="#3D2A6B" stroke-width="3"/><text x="230" y="160" text-anchor="middle" font-family="Libre Franklin" font-weight="900" font-size="26" fill="#3D2A6B">$2</text></g></svg></div>
+        <figcaption>Raffle day photo here</figcaption></figure>
+    </div>
+    <div class="rv">
+      <p class="eyebrow">Our story</p>
+      <h2 id="st-h">A TTLC teen, a big idea, and a school full of friends.</h2>
+      <span class="qmark" aria-hidden="true">“</span>
+      <p class="pull">It started with a simple idea: a lunchtime raffle where anyone can buy as many tickets as they want for $2, and every cent goes to Sunrise.</p>
+      <p>A Lawrenceville student and TTLC member wanted to introduce friends and classmates to the camp that means so much to them. The raffle is the first step. Next year, we hope to grow it into SunriseWALKS at Lawrenceville.</p>
+      <p><span class="placeholder-note">✏️ Add your own story and photos here</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band sec-orange" aria-labelledby="c-h">
+  <svg class="doodle" style="left:6%;top:40px;width:72px;color:var(--purple-deep)" aria-hidden="true"><use href="#mini-sun"/></svg>
+  <svg class="doodle" style="right:8%;bottom:50px;width:56px;color:var(--purple-deep)" aria-hidden="true"><use href="#sparkle"/></svg>
+  <div class="wrap">
+    <h2 id="c-h" class="rv">Be someone's sunrise.</h2>
+    <p class="rv">Buy a ticket, make a gift, or share this page with a friend. Every bit of light helps a child have the summer they deserve.</p>
+    <div class="rv"><a class="btn btn-primary donate-link" href="#">Donate to Sunrise</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <p style="font-weight:900;font-size:24px;margin-bottom:8px">Raffle for Sunrise</p>
+        <p>A student-led fundraiser at Lawrenceville supporting Sunrise Day Camp Greater Philadelphia, through TTLC.</p>
+      </div>
+      <div>
+        <h3>Explore</h3>
+        <ul>
+          <li><a href="#about">About Sunrise</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#tickets">Get tickets</a></li>
+          <li><a href="#story">Our story</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Sunrise</h3>
+        <ul>
+          <li><a href="https://www.sunrisedaycamp-njpa.org/" rel="noopener">Sunrise Day Camp Greater Philadelphia</a></li>
+          <li><a class="donate-link" href="#">Donate</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal">This is a student-led fundraiser created in partnership with Sunrise Day Camp Greater Philadelphia. Illustrations on this page are original placeholders. Sunrise logos and photos belong to their owners and are not reproduced here.</p>
+  </div>
+</footer>
+
+<script>
+/* ===== EDIT THESE ===== */
+const DONATE_URL  = "https://www.sunrisedaycamp-njpa.org/"; // replace with your personalized Sunrise fundraising page link
+const RAFFLE_DATE = "";        // e.g. "Friday, December 5" (leave empty to show "date coming soon")
+const GOAL        = 500;       // fundraising goal in dollars
+const RAISED      = 0;         // dollars raised so far
+/* ====================== */
+
+// donate links
+document.querySelectorAll('.donate-link').forEach(a=>{a.href=DONATE_URL;a.target='_blank';a.rel='noopener'});
+if(RAFFLE_DATE) document.querySelectorAll('.raffle-date').forEach(e=>e.textContent=RAFFLE_DATE);
+
+// generate sun rays
+(function(){
+  const g=document.querySelector('.rays');
+  const cx=450,cy=450,n=24;let d='';
+  for(let i=0;i<n;i++){
+    const a=i*2*Math.PI/n, w=.085, r1=250, r2=(i%2?420:470);
+    const p=(r,da)=>[cx+r*Math.cos(a+da),cy+r*Math.sin(a+da)].map(v=>v.toFixed(1)).join(',');
+    d+=`<polygon points="${p(r1,-w)} ${p(r2,-w/3)} ${p(r2,w/3)} ${p(r1,w)}"/>`;
+  }
+  g.innerHTML=d;
+})();
+
+// header
+const header=document.querySelector('header.site');
+const onScroll=()=>header.classList.toggle('solid',scrollY>30);
+addEventListener('scroll',onScroll,{passive:true});onScroll();
+const burger=document.querySelector('.burger'),links=document.getElementById('links');
+burger.addEventListener('click',()=>{
+  const o=links.classList.toggle('open');
+  burger.setAttribute('aria-expanded',o);header.classList.toggle('menu-open',o);
+});
+links.addEventListener('click',e=>{if(e.target.closest('a')){links.classList.remove('open');header.classList.remove('menu-open');burger.setAttribute('aria-expanded',false)}});
+
+// reveal + count up
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=n=>'$'+n.toLocaleString();
+const pct=Math.min(100,Math.round(RAISED/GOAL*100));
+document.getElementById('raised').textContent=fmt(RAISED)+' raised';
+document.getElementById('goal').textContent='Goal: '+fmt(GOAL);
+document.getElementById('bar').setAttribute('aria-valuenow',pct);
+function count(el){
+  const t=+el.dataset.count,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+  if(reduce||t<2){el.textContent=pre+t+suf;return}
+  const s=performance.now();
+  (function f(now){const p=Math.min(1,(now-s)/1400);el.textContent=pre+Math.round(t*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(f)})(s);
+}
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-count]').forEach(count);
+  if(e.target.querySelector('#fill')) document.getElementById('fill').style.width=pct+'%';
+  io.unobserve(e.target);
+}),{threshold:.2});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// ticket picker
+const PRICE=2;
+let qty=3;
+const amt=document.getElementById('amount'),lab=document.getElementById('qtylabel'),btn=document.getElementById('btnamt');
+function render(){
+  amt.textContent='$'+qty*PRICE;btn.textContent='$'+qty*PRICE;
+  lab.textContent=qty+(qty===1?' ticket':' tickets')+' · $'+PRICE+' each';
+  document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',+c.dataset.n===qty));
+}
+document.getElementById('minus').onclick=()=>{qty=Math.max(1,qty-1);render()};
+document.getElementById('plus').onclick=()=>{qty=Math.min(100,qty+1);render()};
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{qty=+c.dataset.n;render()});
+render();
+</script>
+</body>
+</html>
